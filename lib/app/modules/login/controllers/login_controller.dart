@@ -10,6 +10,7 @@ class LoginController extends GetxController {
   final RxString password = ''.obs;
   final RxString emailError = ''.obs;
   final RxString passwordError = ''.obs;
+  final showPassword = RxBool(false);
   final logger = Logger();
 
   void updateEmail(String value) {
@@ -20,6 +21,10 @@ class LoginController extends GetxController {
   void updatePassword(String value) {
     password.value = value;
     passwordError.value = '';
+  }
+
+  void toggleShowPassword() {
+    showPassword.value = !showPassword.value;
   }
 
   Future<void> login() async {

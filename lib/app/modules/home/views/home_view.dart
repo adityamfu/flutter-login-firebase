@@ -18,8 +18,12 @@ class HomeView extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'HomeView is working',
+              'Login Successful',
               style: TextStyle(fontSize: 20),
+            ),
+            const Text(
+              'Hi Welcome Home !',
+              style: TextStyle(fontSize: 50),
             ),
             ElevatedButton(
               onPressed: () {

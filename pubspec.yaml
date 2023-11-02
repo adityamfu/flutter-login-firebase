@@ -24,3 +24,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/facebook.png
+    - assets/uti.png
