@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/login_controller.dart';
+import 'package:ifa_21312103/app/controller/auth_controller.dart';
+import '../../../controller/login_controller.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends GetView<LoginController> {
+  final CAuth = Get.find<AuthController>();
   final LoginController loginController = Get.find<LoginController>();
 
   @override
