@@ -20,8 +20,16 @@ class HomeController extends GetxController {
   // void onClose() {
   //   super.onClose();
   // }
+  Rx<User?> user = Rx<User?>(null);
 
-  void increment() => count.value++;
+  @override
+  void onInit() {
+    super.onInit();
+    // Subscribe to auth changes when the controller is initialized
+    _auth.authStateChanges().listen((User? newUser) {
+      user.value = newUser;
+    });
+  }
 
   Future<void> logout() async {
     await _auth.signOut();

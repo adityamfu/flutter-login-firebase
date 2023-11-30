@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ifa_21312103/app/controller/auth_controller.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ifa_21312103/app/routes/app_pages.dart';
 import 'package:logger/logger.dart';
@@ -12,6 +14,7 @@ class LoginController extends GetxController {
   final RxString passwordError = ''.obs;
   final showPassword = RxBool(false);
   final logger = Logger();
+  final AuthController _authController = Get.find();
 
   void updateEmail(String value) {
     email.value = value;
@@ -25,6 +28,10 @@ class LoginController extends GetxController {
 
   void toggleShowPassword() {
     showPassword.value = !showPassword.value;
+  }
+
+  void goToSignUp() {
+    Get.toNamed('/signUp');
   }
 
   Future<void> login() async {
@@ -56,6 +63,59 @@ class LoginController extends GetxController {
       logger.e('Error: $e');
       passwordError.value =
           'Login failed. Please check your email and password.';
+    }
+  }
+
+  void showResetPasswordModal() {
+    Get.bottomSheet(
+      Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+              'Reset Password',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _authController.emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Get.back();
+                resetPassword();
+              },
+              child: const Text('Reset Password'),
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: Colors.white,
+      elevation: 10,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+    );
+  }
+
+  Future<void> resetPassword() async {
+    try {
+      await _authController.resetPassword(_authController.emailController.text);
+    } catch (e) {
+      print("Reset password failed: $e");
     }
   }
 

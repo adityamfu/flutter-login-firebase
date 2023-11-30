@@ -162,9 +162,26 @@ class LoginView extends GetView<LoginController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Text('Belum punya akun?'),
+                TextButton(
+                  onPressed: () {
+                    controller.goToSignUp();
+                  },
+                  child: const Text(
+                    'Register',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 const Text('Lupa Password?'),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.showResetPasswordModal();
+                  },
                   child: const Text(
                     'Reset Password',
                     style: TextStyle(color: Colors.red),
@@ -207,7 +224,7 @@ class LoginView extends GetView<LoginController> {
               ],
             ),
             Container(
-              margin: const EdgeInsets.only(top: 40),
+              margin: const EdgeInsets.only(top: 20),
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Colors.grey[200],
